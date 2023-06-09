@@ -5,13 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Button from './app/components/AppButton';
 
-import AuthNavigator from './app/navigation/AuthNavigator';
-
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Screen from "./app/components/Screen"
-import navigationTheme from "./app/navigation/navigationTheme";
-import AppNavigator from "./app/navigation/AppNavigator";
 
 const Tweets = ({ navigation }) => (
   <Screen>
@@ -60,14 +56,10 @@ const TabNavigator = () => (
   </Tab.Navigator>
 )
 
-export default function App() {
+export default function AppTestNavigation() {
   return(
-    <NavigationContainer theme={navigationTheme}>
-      <AppNavigator />
+    <NavigationContainer>
+      <TabNavigator />
     </NavigationContainer>
   );
 }
-
-
-
-

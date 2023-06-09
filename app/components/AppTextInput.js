@@ -1,17 +1,44 @@
-import React from 'react';
-import { TextInput, View, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { TextInput, View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defaultStyles from '../config/styles';
 
 
 function AppTextInput({ icon, width = "100%", ...otherProps }) {
+  const inputRef = useRef();
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handlePress = () => {
+    inputRef.current.focus();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    Keyboard.dismiss();
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
     return (
+      <TouchableWithoutFeedback onPress={handlePress}>
       <View style={[styles.container, { width }]}>
-        {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.medium} style={styles.icon} />}
+        {icon && 
+        <MaterialCommunityIcons 
+        name={icon} 
+        size={20} 
+        color={defaultStyles.colors.medium} 
+        style={styles.icon} />}
         <TextInput
+        ref={inputRef}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         placeholderTextColor={defaultStyles.colors.medium}
-         style={defaultStyles.text} {...otherProps} />
-      </View>
+         style={defaultStyles.text} 
+         {...otherProps} />
+      </View> 
+      </TouchableWithoutFeedback>
     );
 }
 
